@@ -123,13 +123,13 @@ void delay_sec(float seconds, uint8_t mode) {
 // Delays variable defined milliseconds. Compiler compatibility fix for _delay_ms(),
 // which only accepts constants in future compiler releases.
 void delay_ms(uint16_t ms) {
-	if (ms == 0) {
-		return;
-	}
+    if (ms == 0) {
+        return;
+    }
     uint32_t temp;
     SysTick->LOAD = (uint32_t)72000000 / 8000 * ms;  // Loading time
-    SysTick->VAL  = 0x00;                      // Empty the counter
-    SysTick->CTRL = 0x01;                      // Start from bottom
+    SysTick->VAL  = 0x00;                            // Empty the counter
+    SysTick->CTRL = 0x01;                            // Start from bottom
     do {
         temp = SysTick->CTRL;
     } while ((temp & 0x01) && !(temp & (1 << 16)));  // Wait time arrive

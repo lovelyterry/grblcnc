@@ -35,10 +35,10 @@ volatile uint8_t sys_rt_exec_debug;
 #endif
 
 int main(void) {
-	{
-		extern int32_t g_pfnVectors;
-	    SCB->VTOR = (int32_t)&g_pfnVectors;
-	}
+    //	{
+    //		extern int32_t g_pfnVectors;
+    //	    SCB->VTOR = (int32_t)&g_pfnVectors;
+    //	}
 
     // Initialize system upon power-up.
     serial_init();    // Setup serial baud rate and interrupts

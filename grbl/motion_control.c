@@ -240,22 +240,7 @@ void mc_homing_cycle(uint8_t cycle_mask) {
     plan_sync_position();
 
     // If hard limits feature enabled, re-enable hard limits pin change register after homing cycle.
-#ifdef STM32F103C8
-#if defined EXTRA_A_AXIS
-    EXTI_ClearITPendingBit((1 << X_LIMIT_BIT) | (1 << Y_LIMIT_BIT) | (1 << Z_LIMIT_BIT) | (1 << A_LIMIT_BIT));
-#elif defined EXTRA_AB_AXIS
-    EXTI_ClearITPendingBit((1 << X_LIMIT_BIT) | (1 << Y_LIMIT_BIT) | (1 << Z_LIMIT_BIT) | (1 << A_LIMIT_BIT) | (1 << B_LIMIT_BIT));
-#elif defined EXTRA_ABC_AXIS
-    EXTI_ClearITPendingBit((1 << X_LIMIT_BIT) | (1 << Y_LIMIT_BIT) | (1 << Z_LIMIT_BIT) | (1 << A_LIMIT_BIT) | (1 << B_LIMIT_BIT) | (1 << C_LIMIT_BIT));
-#else
-    EXTI_ClearITPendingBit((1 << X_LIMIT_BIT) | (1 << Y_LIMIT_BIT) | (1 << Z_LIMIT_BIT));
-#endif
-    // ---
-    NVIC_ClearPendingIRQ(EXTI15_10_IRQn);
-    NVIC_EnableIRQ(EXTI15_10_IRQn);
-#else
     limits_init();
-#endif
 }
 
 // Perform tool length probe cycle. Requires probe switch.

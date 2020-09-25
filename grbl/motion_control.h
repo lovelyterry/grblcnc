@@ -22,6 +22,7 @@
 #pragma once
 
 #include <stdint.h>
+
 #include "planner.h"
 
 // System motion commands must have a line number of zero.

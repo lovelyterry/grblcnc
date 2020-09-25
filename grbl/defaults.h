@@ -91,10 +91,10 @@
 #define DEFAULT_INVERT_ST_ENABLE        1
 #define DEFAULT_INVERT_LIMIT_PINS       1
 #define DEFAULT_SOFT_LIMIT_ENABLE       0
-#define DEFAULT_HARD_LIMIT_ENABLE       0
+#define DEFAULT_HARD_LIMIT_ENABLE       1
 #define DEFAULT_INVERT_PROBE_PIN        0
 #define DEFAULT_LASER_MODE              0
-#define DEFAULT_HOMING_ENABLE           0
+#define DEFAULT_HOMING_ENABLE           1
 #define DEFAULT_HOMING_DIR_MASK         0x1f
 #define DEFAULT_HOMING_FEED_RATE        10.0f   // mm/min
 #define DEFAULT_HOMING_SEEK_RATE        100.0f  // mm/min

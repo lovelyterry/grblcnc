@@ -30,7 +30,6 @@ void spindle_init() {
     pwm_gradient = SPINDLE_PWM_RANGE / (settings.rpm_max - settings.rpm_min);
 #endif
 
-
     GPIO_InitTypeDef GPIO_InitStructure;
     RCC_APB2PeriphClockCmd(RCC_SPINDLE_ENABLE_PORT, ENABLE);  // there is no RCC_SPINDLE_DIRECTION_PORT defined!
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -81,7 +80,6 @@ void spindle_init() {
 uint8_t spindle_get_state() {
     uint8_t pin = 0;
 
-
     pin = GPIO_ReadInputData(SPINDLE_ENABLE_PORT);
 #ifdef USE_SPINDLE_ENABLE_PIN
 #ifdef INVERT_SPINDLE_ENABLE_PIN
@@ -128,9 +126,7 @@ void spindle_stop() {
 // Sets spindle speed PWM output and enable pin, if configured. Called by spindle_set_state()
 // and stepper ISR. Keep routine small and efficient.
 void spindle_set_speed(SPINDLE_PWM_TYPE pwm_value) {
-#if defined(STM32F103C8)
     TIM1->CCR1 = pwm_value;
-#endif
 #ifdef SPINDLE_ENABLE_OFF_WITH_ZERO_SPEED
     if (pwm_value == SPINDLE_PWM_OFF_VALUE) {
         spindle_stop();
@@ -235,18 +231,21 @@ void _spindle_set_state(uint8_t state)
 {
     if (sys.abort) { return; }       // Block during abort.
     if (state == SPINDLE_DISABLE) {  // Halt or set spindle direction and rpm.
+
 #ifdef VARIABLE_SPINDLE
         sys.spindle_speed = 0.0f;
 #endif
         spindle_stop();
+
     } else {
-#if !(defined(USE_SPINDLE_DIR_AS_ENABLE_PIN))
+#if !defined(USE_SPINDLE_DIR_AS_ENABLE_PIN)
         if (state == SPINDLE_ENABLE_CW) {
             ResetSpindleDirectionBit();
         } else {
             SetSpindleDirectionBit();
         }
 #endif
+
 #ifdef VARIABLE_SPINDLE
         // NOTE: Assumes all calls to this function is when Grbl is not moving or must remain off.
         if (settings.flags & BITFLAG_LASER_MODE) {

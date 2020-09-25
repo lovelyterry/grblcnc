@@ -99,7 +99,7 @@ uint8_t limits_get_state() {
     if (pin) {
         uint8_t idx;
         for (idx = 0; idx < N_AXIS; idx++) {
-            if (pin & limit_pin_mask[idx]) { limit_state |= (1 << idx); }
+            if (!(pin & limit_pin_mask[idx])) { limit_state |= (1 << idx); }
         }
     }
     return (limit_state);

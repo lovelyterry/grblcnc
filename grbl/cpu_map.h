@@ -24,7 +24,6 @@
 
 #pragma once
 
-
 #ifdef DEFAULTS_GENERIC
 
 // Define step pulse output pins. NOTE: All step bit pins must be on the same port.

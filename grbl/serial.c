@@ -76,6 +76,7 @@ void serial_init() {
         GPIO_Init(GPIOA, &GPIO_InitStructure);
         GPIO_WriteBit(GPIOA, GPIO_Pin_11, Bit_RESET);
         GPIO_WriteBit(GPIOA, GPIO_Pin_12, Bit_RESET);
+        delay_ms(150);
     }
     Set_USBClock();
     USB_Interrupts_Config();
@@ -175,8 +176,8 @@ void OnUsbDataRx(uint8_t* dataIn, uint8_t length) {
  *----------------------------------------------------------------------------*/
 void USART1_IRQHandler(void) {
     volatile unsigned int IIR;
-    uint8_t data;
-    uint8_t next_head;
+    uint8_t               data;
+    uint8_t               next_head;
 
     IIR = USART1->SR;
     if (IIR & USART_FLAG_RXNE) {  // read interrupt
